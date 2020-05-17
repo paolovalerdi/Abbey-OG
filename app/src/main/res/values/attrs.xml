@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="roundSelector" format="reference" />
+    <attr name="rectSelector" format="reference" />
+    <attr name="rectSelectorStrong" format="reference" />
+    <attr name="emptyStateDrawable" format="reference" />
+
+    <attr name="defaultFooterColor" format="color" />
+    <attr name="toolbarPopupTheme" format="reference" />
+
+    <attr name="colorSurfaceElevated" format="color" />
+
+    <attr name="nowPlayingColor" format="color" />
+    <attr name="imagesColor" format="color" />
+    <attr name="audioColor" format="color" />
+    <attr name="otherColor" format="color" />
+
+    <declare-styleable name="ColoredShadowImageView">
+
+        <attr name="radiusOffset" format="float" />
+        <attr name="shadowColor" format="color" />
+        <attr name="topOffSet" format="integer" />
+
+    </declare-styleable>
+
+</resources>

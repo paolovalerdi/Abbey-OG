@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/subHead"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/default_item_margin"
+        android:paddingEnd="@dimen/default_item_margin"
+        android:text="@string/rename_playlist_title"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+        android:textColor="?android:textColorSecondary"
+        tools:ignore="RtlSymmetry" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/dialogActions"
+        style="@style/Widget.Abbey.NavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.Abbey.NavigationView"
+        app:elevation="0dp"
+        app:itemIconTint="?colorError"
+        app:itemTextAppearance="@style/TextAppearance.Abbey.Item.Title"
+        app:itemTextColor="?colorError"
+        app:menu="@menu/menu_actions" />
+
+</LinearLayout>

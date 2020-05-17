@@ -1,0 +1,36 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_header_playlists">
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="this_month"
+            app:entries="@array/pref_playlists_last_added_interval_titles"
+            app:entryValues="@array/pref_playlists_last_added_interval_values"
+            app:key="last_added_interval"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_title_last_added_interval"
+            app:useSimpleSummaryProvider="true" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="this_month"
+            app:entries="@array/pref_playlists_recently_played_interval_titles"
+            app:entryValues="@array/pref_playlists_recently_played_interval_values"
+            app:key="recently_played_interval"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_title_recently_played_interval"
+            app:useSimpleSummaryProvider="true" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/blacklist">
+
+        <com.paolovalerdi.abbey.preferences.BlacklistPreference
+            app:key="blacklist"
+            app:summary="@string/pref_summary_blacklist"
+            app:title="@string/blacklist" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

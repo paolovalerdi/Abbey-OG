@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeightSmall"
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal">
+
+    <com.kabouzeid.appthemehelper.common.views.ATECheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+        android:textSize="16sp"
+        tools:text="Item" />
+
+    <com.paolovalerdi.abbey.views.IconImageView
+        android:id="@+id/drag_view"
+        android:layout_width="?listPreferredItemHeightSmall"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/ic_drag"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>

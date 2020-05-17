@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_title_now_playing_screen_appearance">
+
+        <com.paolovalerdi.abbey.preferences.NowPlayingScreenPreference
+            app:key="now_playing_screen_id"
+            app:title="@string/pref_title_now_playing_screen_appearance" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESeekBarPreference
+            android:layout="@layout/ate_preference_custom_seekbar"
+            android:max="50"
+            app:defaultValue="25"
+            app:isPreferenceVisible="false"
+            app:key="material_now_playing_padding"
+            app:min="25"
+            app:title="Album art padding" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:key="synchronized_lyrics_show"
+            app:summary="@string/pref_summary_synchronized_lyrics_show"
+            app:title="@string/pref_title_synchronized_lyrics_show" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:key="show_volume_slider"
+            app:title="@string/pref_title_volume_controls" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_header_notification">
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="false"
+            app:key="classic_notification"
+            app:summary="@string/pref_summary_classic_notification"
+            app:title="@string/pref_title_classic_notification" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:dependency="classic_notification"
+            app:key="colored_notification"
+            app:summary="@string/pref_summary_colored_notification"
+            app:title="@string/pref_title_colored_notification" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="false"
+            app:key="expand_player_pref"
+            app:summary="@string/pref_summary_expand_from_notification"
+            app:title="@string/pref_title_expand_from_notification" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+
+</androidx.preference.PreferenceScreen>

@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="vector"
+    android:width="411dp"
+    android:height="823dp"
+    android:viewportWidth="411"
+    android:viewportHeight="823">
+    <path
+        android:name="path_surface"
+        android:fillColor="#121212"
+        android:pathData="M 0 0 L 411 0 L 411 823 L 0 823 Z"
+        android:strokeWidth="1" />
+    <path
+        android:name="path_cover"
+        android:fillColor="#fff"
+        android:pathData="M 0 24 L 411 24 L 411 435 L 0 435 L 0 24 Z"
+        android:strokeWidth="1" />
+    <path
+        android:name="path_status_bar"
+        android:fillColor="#fff"
+        android:pathData="M 0 0 L 411 0 L 411 24 L 0 24 Z"
+        android:strokeWidth="1" />
+    <path
+        android:name="path_queue"
+        android:fillColor="#000"
+        android:pathData="M 0 569 L 411 569 L 411 823 L 0 823 Z"
+        android:strokeWidth="1" />
+    <path
+        android:name="path_fab"
+        android:fillColor="#fff"
+        android:pathData="M 206 472 C 199.653 471.98 193.46 473.975 188.318 477.696 C 183.175 481.417 179.344 486.676 177.379 492.711 C 175.414 498.747 175.414 505.253 177.379 511.289 C 179.344 517.324 183.175 522.583 188.318 526.304 C 193.46 530.025 199.653 532.02 206 532 C 212.347 532.02 218.54 530.025 223.682 526.304 C 228.825 522.583 232.656 517.324 234.621 511.289 C 236.586 505.253 236.586 498.747 234.621 492.711 C 232.656 486.676 228.825 481.417 223.682 477.696 C 218.54 473.975 212.347 471.98 206 472 Z"
+        android:strokeWidth="1" />
+</vector>

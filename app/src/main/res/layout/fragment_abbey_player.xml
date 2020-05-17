@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    app:umanoFadeColor="@android:color/transparent"
+    app:umanoOverlay="true"
+    app:umanoShadowHeight="0dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/player_album_cover_fragment"
+            class="com.paolovalerdi.abbey.ui.fragments.player.base.PagedAlbumCoverFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_player_album_cover" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.paolovalerdi.abbey.views.StatusBarView
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/player_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mini_player_height" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.paolovalerdi.abbey.views.StatusBarMarginFrameLayout
+        android:id="@+id/player_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/playback_controls_fragment"
+                class="com.paolovalerdi.abbey.ui.fragments.player.abbey.AbbeyPlayerPlaybackControlsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.paolovalerdi.abbey.views.NavigationBarView
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--This is necessary for the drag sorting to work at the top-->
+                <View
+                    android:id="@+id/draggable_area"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/card_content"
+                    android:layout_alignBottom="@+id/card_content"
+                    android:layout_marginTop="120dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="?colorSurfaceElevated"
+                    app:cardCornerRadius="@dimen/corner_radius_medium">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/player_queue_sub_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="?colorSurfaceElevated"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="16dp"
+                            android:paddingRight="16dp"
+                            android:text="@string/up_next"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="?android:textColorSecondary" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/player_queue_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?colorSurface" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </com.paolovalerdi.abbey.views.StatusBarMarginFrameLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

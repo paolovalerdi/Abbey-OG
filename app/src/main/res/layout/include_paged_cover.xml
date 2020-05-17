@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.paolovalerdi.abbey.views.WidthFitSquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/album_cover_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/player_album_cover_fragment"
+        class="com.paolovalerdi.abbey.ui.fragments.player.base.PagedAlbumCoverFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/player_toolbar"
+        style="@style/Toolbar"
+        android:background="@android:color/transparent" />
+
+</com.paolovalerdi.abbey.views.WidthFitSquareLayout>

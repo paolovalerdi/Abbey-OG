@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Abbey</string>
+
+    <string name="adrien_poupa" translatable="false">Adrien Poupa</string>
+    <string name="karim_abou_zeid" translatable="false">Karim Abou Zeid</string>
+    <string name="paolo_valerdi" translatable="false">Paolo Valerdi</string>
+
+    <string name="git_hub" translatable="false">GitHub</string>
+    <string name="twitter" translatable="false">Twitter</string>
+
+    <string name="card" translatable="false">Card</string>
+    <string name="flat" translatable="false">Flat</string>
+    <string name="material" translatable="false">Material</string>
+    <string name="blur" translatable="false">Blur</string>
+
+    <string name="file_provider" translatable="false">com.paolovalerdi.abbey.fileprovider</string>
+
+    <string name="license_dialog_style" translatable="false">
+        body {
+            background-color: #{bg-color};
+            color: #{text-color};
+            font-family: sans-serif;
+            overflow-wrap: break-word;
+        }
+        pre {
+            background-color: #{license-bg-color};
+            padding: 1em;
+            white-space: pre-wrap;
+        }
+    </string>
+
+</resources>

@@ -1,0 +1,111 @@
+<resources>
+
+    <!-- General Theme -->
+
+    <string-array name="pref_general_theme_list_titles">
+        <item>@string/light_theme_name</item>
+        <item>@string/dark_theme_name</item>
+        <item>@string/black_theme_name</item>
+    </string-array>
+
+    <string-array name="pref_general_theme_list_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>black</item>
+    </string-array>
+
+    <!-- Image downloading-->
+
+    <string-array name="pref_auto_download_images_titles">
+        <item>@string/always</item>
+        <item>@string/only_on_wifi</item>
+        <item>@string/never</item>
+    </string-array>
+
+    <string-array name="pref_auto_download_images_values">
+        <item>always</item>
+        <item>only_wifi</item>
+        <item>never</item>
+    </string-array>
+
+    <!-- Playlist intervals -->
+
+    <string-array name="pref_playlists_recently_played_interval_titles">
+        <item>@string/today</item>
+        <item>@string/this_week</item>
+        <item>@string/past_seven_days</item>
+        <item>@string/this_month</item>
+        <item>@string/past_three_months</item>
+        <item>@string/this_year</item>
+    </string-array>
+
+    <string-array name="pref_playlists_recently_played_interval_values">
+        <item>today</item>
+        <item>this_week</item>
+        <item>past_seven_days</item>
+        <item>this_month</item>
+        <item>past_three_months</item>
+        <item>this_year</item>
+    </string-array>
+
+    <string-array name="pref_playlists_last_added_interval_titles">
+        <item>@string/today</item>
+        <item>@string/this_week</item>
+        <item>@string/past_seven_days</item>
+        <item>@string/this_month</item>
+        <item>@string/past_three_months</item>
+        <item>@string/this_year</item>
+    </string-array>
+
+    <string-array name="pref_playlists_last_added_interval_values">
+        <item>today</item>
+        <item>this_week</item>
+        <item>past_seven_days</item>
+        <item>this_month</item>
+        <item>past_three_months</item>
+        <item>this_year</item>
+    </string-array>
+
+    <!-- ReplayGain -->
+
+    <string-array name="pref_audio_replaygain_source_mode_titles">
+        <item>@string/none</item>
+        <item>@string/track</item>
+        <item>@string/album</item>
+    </string-array>
+
+    <string-array name="pref_audio_replaygain_source_mode_values">
+        <item>none</item>
+        <item>track</item>
+        <item>album</item>
+    </string-array>
+
+    <!-- Home long click action -->
+
+    <string-array name="pref_home_long_click_titles">
+        <item>@string/action_add_to_playing_queue</item>
+        <item>@string/action_play</item>
+    </string-array>
+
+    <string-array name="pref_home_long_click_values">
+        <item>enqueue</item>
+        <item>play</item>
+    </string-array>
+
+    <!-- Home long click action -->
+
+    <string-array name="pref_bottom_bar_label_mode_title">
+        <item>@string/auto</item>
+        <item>@string/selected</item>
+        <item>@string/labeled</item>
+        <item>@string/unlabeled</item>
+    </string-array>
+
+    <string-array name="pref_bottom_bar_label_mode_values">
+        <item>auto</item>
+        <item>selected</item>
+        <item>labeled</item>
+        <item>unlabeled</item>
+    </string-array>
+
+</resources>

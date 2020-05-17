@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/default_item_margin"
+        android:paddingEnd="@dimen/default_item_margin"
+        android:text="@string/rename_playlist_title"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+        android:textColor="?android:textColorSecondary"
+        tools:ignore="RtlSymmetry" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_item_margin"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        android:hint="@string/playlist_name_empty"
+        app:boxBackgroundColor="?colorBackgroundFloating">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialogEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialogButtonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/default_item_margin"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        android:layout_marginBottom="@dimen/default_item_margin"
+        tools:text="Ok" />
+
+</LinearLayout>

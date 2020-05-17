@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="com.paolovalerdi.abbey.ui.activities.preferences.fragments.LookAndFeelPreferenceFragment"
+        app:iconColor="@color/abbey_accent_color"
+        app:iconRes="@drawable/ic_palette"
+        app:key="look_fragment"
+        app:summary="@string/pref_summary_look_and_feel"
+        app:title="@string/pref_header_look_and_feel" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="com.paolovalerdi.abbey.ui.activities.preferences.fragments.NowPlayingPreferenceFragment"
+        app:iconColor="?nowPlayingColor"
+        app:iconRes="@drawable/ic_screen"
+        app:key="now_playing_fragment"
+        app:summary="@string/pref_summary_now_playing"
+        app:title="@string/pref_header_now_playing_screen" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="com.paolovalerdi.abbey.ui.activities.preferences.fragments.ImagesPreferenceFragment"
+        app:iconColor="?imagesColor"
+        app:iconRes="@drawable/ic_image"
+        app:key="images_fragment"
+        app:summary="@string/pref_summary_images"
+        app:title="@string/pref_header_images" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="com.paolovalerdi.abbey.ui.activities.preferences.fragments.AudioPreferenceFragment"
+        app:iconColor="?audioColor"
+        app:iconRes="@drawable/ic_volume_up"
+        app:key="audio_fragment"
+        app:summary="@string/pref_summary_audio"
+        app:title="@string/pref_header_audio" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="com.paolovalerdi.abbey.ui.activities.preferences.fragments.OtherPreferenceFragment"
+        app:iconColor="?otherColor"
+        app:iconRes="@drawable/ic_library_music"
+        app:key="other_fragment"
+        app:summary="@string/pref_summary_other"
+        app:title="@string/library" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:fragment="about_custom_fragment"
+        app:iconColor="?colorPrimary"
+        app:iconRes="@drawable/ic_info"
+        app:key="about_fragment"
+        app:title="@string/action_about" />
+
+</androidx.preference.PreferenceScreen>

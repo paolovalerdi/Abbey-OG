@@ -1,0 +1,66 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_title_now_playing_screen_appearance">
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="light"
+            app:entries="@array/pref_general_theme_list_titles"
+            app:entryValues="@array/pref_general_theme_list_values"
+            app:key="general_theme"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_title_general_theme"
+            app:useSimpleSummaryProvider="true" />
+
+        <!-- All this redundant attributes are needed so this pref does not get bugged -->
+        <com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="true"
+            app:key="accent_color"
+            app:title="@string/accent_color" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:key="colored_app_shortcuts"
+            app:summary="@string/pref_summary_colored_app_shortcuts"
+            app:title="@string/pref_title_app_shortcuts" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:key="parallax_effect"
+            app:summary="Animates the content view while sliding up the now playing screen."
+            app:title="Parallax" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/library">
+
+        <com.paolovalerdi.abbey.preferences.CategoryPreference
+            app:key="library_categories"
+            app:summary="@string/pref_summary_library_categories"
+            app:title="@string/library_categories" />
+
+        <!--<com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="play"
+            app:entries="@array/pref_home_long_click_titles"
+            app:entryValues="@array/pref_home_long_click_values"
+            app:key="home_item_long_click"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_title_home_long_click"
+            app:useSimpleSummaryProvider="true" /> -->
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="labeled"
+            app:entries="@array/pref_bottom_bar_label_mode_title"
+            app:entryValues="@array/pref_bottom_bar_label_mode_values"
+            app:key="bottom_bar_label_mode"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="Label mode"
+            app:useSimpleSummaryProvider="true" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

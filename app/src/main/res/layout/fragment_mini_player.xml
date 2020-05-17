@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/miniPlayerBackground"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mini_player_height"
+    android:background="?colorSurfaceElevated"
+    android:clickable="true"
+    android:focusable="true"
+    tools:ignore="UnusedAttribute">
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mpb_progressStyle="horizontal"
+        app:mpb_useIntrinsicPadding="false" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/albumArt"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+    <TextView
+        android:id="@+id/miniPlayerTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingStart="@dimen/default_item_margin"
+        android:paddingEnd="@dimen/default_item_margin"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+        app:layout_constraintBottom_toTopOf="@id/miniPlayerTex"
+        app:layout_constraintEnd_toStartOf="@id/miniPlayerPlayPauseButton"
+        app:layout_constraintStart_toEndOf="@id/albumArt"
+        app:layout_constraintTop_toTopOf="@id/albumArt"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Song" />
+
+    <TextView
+        android:id="@+id/miniPlayerTex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingStart="@dimen/default_item_margin"
+        android:paddingEnd="@dimen/default_item_margin"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Subtitle"
+        app:layout_constraintBottom_toBottomOf="@id/albumArt"
+        app:layout_constraintEnd_toStartOf="@id/miniPlayerPlayPauseButton"
+        app:layout_constraintStart_toEndOf="@id/albumArt"
+        app:layout_constraintTop_toBottomOf="@id/miniPlayerTitle"
+        tools:text="Artist - Album" />
+
+    <com.paolovalerdi.abbey.views.IconImageView
+        android:id="@+id/miniPlayerPlayPauseButton"
+        android:layout_width="48dp"
+        android:layout_height="0dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:tint="?colorControlNormal"
+        tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

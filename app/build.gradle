@@ -1,0 +1,157 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        //noinspection GradleDynamicVersion
+    }
+}
+
+def getProperties(String fileName) {
+    final Properties properties = new Properties()
+    def file = file(fileName)
+    if (file.exists()) {
+        file.withInputStream { stream -> properties.load(stream) }
+    }
+    return properties
+}
+
+static def getProperty(Properties properties, String name) {
+    return properties.getProperty(name) ?: "$name missing"
+}
+
+android {
+
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+
+        vectorDrawables.useSupportLibrary = true
+
+        applicationId 'com.paolovalerdi.abbey'
+        versionCode 210
+        versionName '2.0'
+    }
+
+    signingConfigs {
+        release {
+            Properties properties = getProperties('C:/Users/Paolo/Documents/AbbeyResources/abbeyKeyStore.properties')
+            storeFile file(getProperty(properties, 'storeFile'))
+            keyAlias getProperty(properties, 'keyAlias')
+            storePassword getProperty(properties, 'storePassword')
+            keyPassword getProperty(properties, 'keyPassword')
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix ' DEBUG '
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+        disable 'InvalidPackage'
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    def lifecycle_version = "2.1.0-rc01"
+
+    // Android
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.media:media:1.0.1'
+    implementation 'androidx.fragment:fragment-ktx:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.preference:preference:1.1.0-rc01'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta03'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version" // For Kotlin use lifecycle-viewmodel-ktx
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha02'
+
+    // Google
+    implementation 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Third Party (UI)
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
+    implementation 'com.github.paolovalerdi:app-theme-helper:2.0.2'
+    implementation 'com.github.paolovalerdi:bottomsheet-imagepicker:1.0.5'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
+    implementation 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    implementation 'com.afollestad:material-cab:0.1.12'
+    implementation 'com.heinrichreimersoftware:material-intro:1.6'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
+    implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:3.4.0'
+    implementation 'me.jfenn:Attribouter:0.1.5'
+    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.8.0'
+
+    //Other
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.github.AdrienPoupa:jaudiotagger:2.2.3'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    implementation 'com.airbnb.android:epoxy:3.7.0'
+    kapt 'com.airbnb.android:epoxy-processor:3.7.0'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+
+    testImplementation 'junit:junit:4.12'
+}

@@ -1,0 +1,609 @@
+package com.paolovalerdi.abbey.ui.activities.tageditor;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.TintHelper;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.paolovalerdi.abbey.R;
+import com.paolovalerdi.abbey.misc.DialogAsyncTask;
+import com.paolovalerdi.abbey.misc.UpdateToastMediaScannerCompletionListener;
+import com.paolovalerdi.abbey.ui.activities.base.AbsBaseActivity;
+import com.paolovalerdi.abbey.ui.activities.saf.SAFGuideActivity;
+import com.paolovalerdi.abbey.util.MusicUtil;
+import com.paolovalerdi.abbey.util.SAFUtil;
+import com.paolovalerdi.abbey.util.Util;
+
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.images.Artwork;
+import org.jaudiotagger.tag.images.ArtworkFactory;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * @author Karim Abou Zeid (kabouzeid)
+ */
+public abstract class AbsTagEditorActivity extends AbsBaseActivity {
+
+    public static final String EXTRA_ID = "extra_id";
+    private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_SELECT_IMAGE = 1000;
+
+    @BindView(R.id.play_pause_fab)
+    FloatingActionButton fab;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @Nullable
+    @BindView(R.id.image)
+    AppCompatImageView image;
+    @Nullable
+    @BindView(R.id.header)
+    LinearLayout header;
+
+    private int id;
+    private int paletteColorPrimary;
+    private boolean isInNoImageMode;
+
+    private List<String> songPaths;
+
+    private List<String> savedSongPaths;
+    private String currentSongPath;
+    private Map<FieldKey, String> savedTags;
+    private ArtworkInfo savedArtworkInfo;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getContentViewLayout());
+        ButterKnife.bind(this);
+        setNavigationBarColorAuto(false);
+
+        getIntentExtras();
+
+        songPaths = getSongPaths();
+        if (songPaths.isEmpty()) {
+            finish();
+            return;
+        }
+
+        setUpViews();
+
+        ToolbarContentTintHelper.setToolbarContentColorBasedOnToolbarColor(this, toolbar, ATHUtil.resolveColor(this, R.attr.colorSurfaceElevated));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setUpViews() {
+        setUpFab();
+        setUpImageView();
+    }
+
+    private void setUpImageView() {
+        loadCurrentImage();
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.download_from_last_fm),
+                getString(R.string.pick_from_local_storage),
+                getString(R.string.web_search),
+                getString(R.string.remove_cover)
+        };
+        if (image != null) {
+            image.setOnClickListener(v -> new MaterialDialog.Builder(AbsTagEditorActivity.this)
+                    .title(R.string.update_image)
+                    .items(items)
+                    .itemsCallback((dialog, view, which, text) -> {
+                        switch (which) {
+                            case 0:
+                                getImageFromLastFM();
+                                break;
+                            case 1:
+                                startImagePicker();
+                                break;
+                            case 2:
+                                searchImageOnWeb();
+                                break;
+                            case 3:
+                                deleteImage();
+                                break;
+                        }
+                    }).show());
+        }
+    }
+
+    private void startImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.pick_from_local_storage)), REQUEST_CODE_SELECT_IMAGE);
+    }
+
+    protected abstract void loadCurrentImage();
+
+    protected abstract void getImageFromLastFM();
+
+    protected abstract void searchImageOnWeb();
+
+    protected abstract void deleteImage();
+
+    private void setUpFab() {
+        fab.setScaleX(0);
+        fab.setScaleY(0);
+        fab.setEnabled(false);
+        fab.setOnClickListener(v -> save());
+
+        TintHelper.setTintAuto(fab, ThemeStore.accentColor(this), true);
+    }
+
+    protected abstract void save();
+
+    private void getIntentExtras() {
+        Bundle intentExtras = getIntent().getExtras();
+        if (intentExtras != null) {
+            id = intentExtras.getInt(EXTRA_ID);
+        }
+    }
+
+    protected abstract int getContentViewLayout();
+
+    @NonNull
+    protected abstract List<String> getSongPaths();
+
+    protected void searchWebFor(String... keys) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String key : keys) {
+            stringBuilder.append(key);
+            stringBuilder.append(" ");
+        }
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.putExtra(SearchManager.QUERY, stringBuilder.toString());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Start search intent if possible: https://stackoverflow.com/questions/36592450/unexpected-intent-with-action-web-search
+        if (Intent.ACTION_WEB_SEARCH.equals(intent.getAction()) && intent.getExtras() != null) {
+            String query = intent.getExtras().getString(SearchManager.QUERY, null);
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + query));
+            boolean browserExists = intent.resolveActivityInfo(getPackageManager(), 0) != null;
+            if (browserExists && query != null) {
+                startActivity(browserIntent);
+                return;
+            }
+        }
+
+        Toast.makeText(this, R.string.error_no_app_for_intent, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void setNoImageMode() {
+        isInNoImageMode = true;
+        if (image != null) {
+            image.setVisibility(View.GONE);
+            image.setEnabled(false);
+        }
+
+        toolbar.setBackgroundColor(paletteColorPrimary);
+    }
+
+    protected void dataChanged() {
+        showFab();
+    }
+
+    private void showFab() {
+        fab.animate()
+                .setDuration(500)
+                .setInterpolator(new OvershootInterpolator())
+                .scaleX(1)
+                .scaleY(1)
+                .start();
+        fab.setEnabled(true);
+    }
+
+    private void hideFab() {
+        fab.animate()
+                .setDuration(500)
+                .setInterpolator(new OvershootInterpolator())
+                .scaleX(0)
+                .scaleY(0)
+                .start();
+        fab.setEnabled(false);
+    }
+
+    protected void setImageBitmap(@Nullable final Bitmap bitmap, int bgColor) {
+        if (bitmap == null) {
+            if (image != null) {
+                image.setImageResource(R.drawable.default_album_art);
+            }
+        } else {
+            if (image != null) {
+                image.setImageBitmap(bitmap);
+            }
+        }
+        setColors(bgColor);
+    }
+
+    protected void setColors(int color) {
+        paletteColorPrimary = color;
+        if (header != null) {
+            header.setBackgroundColor(paletteColorPrimary);
+        }
+    }
+
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final ArtworkInfo artworkInfo) {
+        Util.hideSoftKeyboard(this);
+
+        hideFab();
+
+        savedSongPaths = getSongPaths();
+        savedTags = fieldKeyValueMap;
+        savedArtworkInfo = artworkInfo;
+
+        if (!SAFUtil.isSAFRequired(savedSongPaths)) {
+            writeTags(savedSongPaths);
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (SAFUtil.isSDCardAccessGranted(this)) {
+                    writeTags(savedSongPaths);
+                } else {
+                    startActivityForResult(new Intent(this, SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);
+                }
+            } else {
+                writeTagsKitkat();
+            }
+        }
+    }
+
+    private void writeTags(List<String> paths) {
+        new WriteTagsAsyncTask(this).execute(new WriteTagsAsyncTask.LoadingInfo(paths, savedTags, savedArtworkInfo));
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void writeTagsKitkat() {
+        if (savedSongPaths.size() < 1) return;
+
+        currentSongPath = savedSongPaths.remove(0);
+
+        if (!SAFUtil.isSAFRequired(currentSongPath)) {
+            writeTags(Collections.singletonList(currentSongPath));
+            writeTagsKitkat();
+        } else {
+            Toast.makeText(this, String.format(getString(R.string.saf_pick_file), currentSongPath), Toast.LENGTH_LONG).show();
+            SAFUtil.openFilePicker(this);
+        }
+    }
+
+    private static class WriteTagsAsyncTask extends DialogAsyncTask<WriteTagsAsyncTask.LoadingInfo, Integer, String[]> {
+        private WeakReference<Activity> activity;
+
+        public WriteTagsAsyncTask(Activity activity) {
+            super(activity);
+            this.activity = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected String[] doInBackground(LoadingInfo... params) {
+            try {
+                LoadingInfo info = params[0];
+
+                Artwork artwork = null;
+                File albumArtFile = null;
+                if (info.artworkInfo != null && info.artworkInfo.artwork != null) {
+                    try {
+                        albumArtFile = MusicUtil.createAlbumArtFile().getCanonicalFile();
+                        info.artworkInfo.artwork.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
+                        artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                int counter = 0;
+                boolean wroteArtwork = false;
+                boolean deletedArtwork = false;
+                for (String filePath : info.filePaths) {
+                    publishProgress(++counter, info.filePaths.size());
+                    try {
+                        Uri safUri = null;
+
+                        if (filePath.contains(SAFUtil.SEPARATOR)) {
+                            String[] fragments = filePath.split(SAFUtil.SEPARATOR);
+                            filePath = fragments[0];
+                            safUri = Uri.parse(fragments[1]);
+                        }
+
+                        AudioFile audioFile = AudioFileIO.read(new File(filePath));
+                        Tag tag = audioFile.getTagOrCreateAndSetDefault();
+
+                        if (info.fieldKeyValueMap != null) {
+                            for (Map.Entry<FieldKey, String> entry : info.fieldKeyValueMap.entrySet()) {
+                                try {
+                                    tag.setField(entry.getKey(), entry.getValue());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        if (info.artworkInfo != null) {
+                            if (info.artworkInfo.artwork == null) {
+                                tag.deleteArtworkField();
+                                deletedArtwork = true;
+                            } else if (artwork != null) {
+                                tag.deleteArtworkField();
+                                tag.setField(artwork);
+                                wroteArtwork = true;
+                            }
+                        }
+
+                        Activity activity = this.activity.get();
+
+                        SAFUtil.write(activity, audioFile, safUri);
+                    } catch (@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Context context = getContext();
+                if (context != null) {
+                    if (wroteArtwork) {
+                        MusicUtil.insertAlbumArt(context, info.artworkInfo.albumId, albumArtFile.getPath());
+                    } else if (deletedArtwork) {
+                        MusicUtil.deleteAlbumArt(context, info.artworkInfo.albumId);
+                    }
+                }
+
+                Collection<String> paths = info.filePaths;
+
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) { // remove SAF URI from paths
+                    paths = new ArrayList<>(info.filePaths.size());
+                    for (String path : info.filePaths) {
+                        if (path.contains(SAFUtil.SEPARATOR))
+                            path = path.split(SAFUtil.SEPARATOR)[0];
+                        paths.add(path);
+                    }
+                }
+
+                return paths.toArray(new String[paths.size()]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String[] toBeScanned) {
+            super.onPostExecute(toBeScanned);
+            scan(toBeScanned);
+        }
+
+        @Override
+        protected void onCancelled(String[] toBeScanned) {
+            super.onCancelled(toBeScanned);
+            scan(toBeScanned);
+        }
+
+        private void scan(String[] toBeScanned) {
+            Activity activity = this.activity.get();
+            if (activity != null) {
+                MediaScannerConnection.scanFile(activity, toBeScanned, null, new UpdateToastMediaScannerCompletionListener(activity, toBeScanned));
+            }
+        }
+
+        @Override
+        protected Dialog createDialog(@NonNull Context context) {
+            return new MaterialDialog.Builder(context)
+                    .title(R.string.saving_changes)
+                    .cancelable(false)
+                    .progress(false, 0)
+                    .build();
+        }
+
+        @Override
+        protected void onProgressUpdate(@NonNull Dialog dialog, Integer... values) {
+            super.onProgressUpdate(dialog, values);
+            ((MaterialDialog) dialog).setMaxProgress(values[1]);
+            ((MaterialDialog) dialog).setProgress(values[0]);
+        }
+
+        public static class LoadingInfo {
+            public final Collection<String> filePaths;
+            @Nullable
+            public final Map<FieldKey, String> fieldKeyValueMap;
+            @Nullable
+            private ArtworkInfo artworkInfo;
+
+            private LoadingInfo(Collection<String> filePaths, @Nullable Map<FieldKey, String> fieldKeyValueMap, @Nullable ArtworkInfo artworkInfo) {
+                this.filePaths = filePaths;
+                this.fieldKeyValueMap = fieldKeyValueMap;
+                this.artworkInfo = artworkInfo;
+            }
+        }
+    }
+
+    public static class ArtworkInfo {
+        public final int albumId;
+        final Bitmap artwork;
+
+        ArtworkInfo(int albumId, Bitmap artwork) {
+            this.albumId = albumId;
+            this.artwork = artwork;
+        }
+    }
+
+    protected int getId() {
+        return id;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (requestCode) {
+            case REQUEST_CODE_SELECT_IMAGE:
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = intent.getData();
+                    loadImageFromFile(selectedImage);
+                }
+                break;
+
+            case SAFGuideActivity.REQUEST_CODE_SAF_GUIDE:
+                SAFUtil.openTreePicker(this);
+                break;
+
+            case SAFUtil.REQUEST_SAF_PICK_TREE:
+                if (resultCode == RESULT_OK) {
+                    SAFUtil.saveTreeUri(this, intent);
+                    writeTags(savedSongPaths);
+                }
+                break;
+
+            case SAFUtil.REQUEST_SAF_PICK_FILE:
+                if (resultCode == RESULT_OK) {
+                    writeTags(Collections.singletonList(currentSongPath + SAFUtil.SEPARATOR + intent.getDataString()));
+                }
+                break;
+        }
+    }
+
+    protected abstract void loadImageFromFile(Uri selectedFile);
+
+    @NonNull
+    private AudioFile getAudioFile(@NonNull String path) {
+        try {
+            return AudioFileIO.read(new File(path));
+        } catch (Exception e) {
+            Log.e(TAG, "Could not read audio file " + path, e);
+            return new AudioFile();
+        }
+    }
+
+    @Nullable
+    protected String getSongTitle() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TITLE);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getAlbumTitle() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getArtistName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getAlbumArtistName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getGenreName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getSongYear() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getTrackNumber() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected String getLyrics() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.LYRICS);
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    protected Bitmap getAlbumArt() {
+        try {
+            Artwork artworkTag = getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirstArtwork();
+            if (artworkTag != null) {
+                byte[] artworkBinaryData = artworkTag.getBinaryData();
+                return BitmapFactory.decodeByteArray(artworkBinaryData, 0, artworkBinaryData.length);
+            }
+            return null;
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+}

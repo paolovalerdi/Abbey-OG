@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/mainNavigationView"
+        style="@style/Widget.Abbey.NavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Widget.Abbey.NavigationView"
+        app:elevation="0dp"
+        app:headerLayout="@layout/dialog_bottom_navigation_header"
+        app:insetForeground="@color/status_bar_scrim"
+        app:menu="@menu/menu_main" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/supportDevelopmentButton"
+        android:layout_width="match_parent"
+        android:layout_height="?listPreferredItemHeightSmall"
+        android:gravity="center_vertical"
+        android:text="@string/support_development"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+        tools:background="@color/abbey_accent_color" />
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="abbey_accent_color">@color/md_blue_A400</color>
+    <color name="ic_launcher_background">@color/abbey_accent_color</color>
+
+    <color name="app_shortcut_default_foreground">@color/abbey_accent_color</color>
+    <color name="app_shortcut_default_background">@android:color/white</color>
+
+    <color name="abbey_theme_light_primary_text_color">#ff202124</color>
+    <color name="abbey_theme_light_secondary_text_color">#ff5f6368</color>
+
+    <color name="abbey_theme_dark_primary_text_color">#ffe8eaed</color>
+    <color name="abbey_theme_dark_secondary_text_color">#ff9aa0a6</color>
+
+    <color name="abbey_theme_dark_surface_color">#121212</color>
+    <color name="abbey_theme_dark_surface_elevated_color">#191919</color>
+    <color name="abbey_theme_dark_color_background_floating_color">#222222</color>
+
+    <color name="abbey_theme_black_surface_color">@android:color/black</color>
+    <color name="abbey_theme_black_surface_elevated_color">#090909</color>
+    <color name="abbey_theme_black_color_background_floating_color">#161616</color>
+
+    <!-- TODO: Check if these are even necessary -->
+    <color name="twenty_percent_black_overlay">#34000000</color>
+    <color name="fifty_percent_black_overlay">#95000000</color>
+
+</resources>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingTop="@dimen/default_item_margin"
+    android:paddingBottom="10dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/favoriteIcon"
+        style="@style/ToolbarIcon"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@id/songInfo"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="@id/songName"
+        app:tint="@color/md_white_1000"
+        tools:src="@drawable/ic_favorite_white_24dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/songName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/md_white_1000"
+        app:layout_constraintBottom_toTopOf="@id/songInfo"
+        app:layout_constraintEnd_toStartOf="@id/moreIcon"
+        app:layout_constraintStart_toEndOf="@id/favoriteIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Song" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/songInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/player_progress_slider"
+        app:layout_constraintEnd_toStartOf="@id/moreIcon"
+        app:layout_constraintStart_toEndOf="@id/favoriteIcon"
+        app:layout_constraintTop_toBottomOf="@id/songName"
+        tools:text="Artist - Album"
+        tools:textColor="@color/ate_secondary_text_dark" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moreIcon"
+        style="@style/ToolbarIcon"
+        android:src="@drawable/ic_comment_text"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@id/songInfo"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/songName"
+        app:tint="@color/mpm_white" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/player_progress_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_item_margin"
+        android:progressBackgroundTint="@color/ate_text_disabled_dark"
+        app:layout_constraintBottom_toTopOf="@id/playerPlayPauseFab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/songInfo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/player_song_current_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/player_progress_slider"
+        tools:text="0:00" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/player_song_total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/player_progress_slider"
+        tools:text="0:00" />
+
+    <ImageButton
+        android:id="@+id/player_repeat_button"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="22dp"
+        android:scaleType="center"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@id/playerPlayPauseFab"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="@id/playerPlayPauseFab"
+        app:srcCompat="@drawable/ic_repeat_white_24dp"
+        tools:ignore="ContentDescription,MissingPrefix" />
+
+    <ImageButton
+        android:id="@+id/player_prev_button"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_centerVertical="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="center"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@+id/playerPlayPauseFab"
+        app:layout_constraintEnd_toStartOf="@+id/playerPlayPauseFab"
+        app:layout_constraintTop_toTopOf="@+id/playerPlayPauseFab"
+        app:srcCompat="@drawable/ic_skip_previous"
+        tools:ignore="ContentDescription,MissingPrefix" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/playerPlayPauseFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        app:elevation="2dp"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_volume_slider"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/player_progress_slider"
+        app:layout_goneMarginBottom="20dp"
+        app:pressedTranslationZ="0dp" />
+
+    <ImageButton
+        android:id="@+id/player_next_button"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@+id/playerPlayPauseFab"
+        app:layout_constraintStart_toEndOf="@+id/playerPlayPauseFab"
+        app:layout_constraintTop_toTopOf="@id/playerPlayPauseFab"
+        app:srcCompat="@drawable/ic_skip_next"
+        tools:ignore="ContentDescription,MissingPrefix" />
+
+    <ImageButton
+        android:id="@+id/player_shuffle_button"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="22dp"
+        android:scaleType="center"
+        android:theme="@style/Theme.Abbey.Base"
+        app:layout_constraintBottom_toBottomOf="@id/playerPlayPauseFab"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/playerPlayPauseFab"
+        app:srcCompat="@drawable/ic_shuffle_white_24dp"
+        tools:ignore="ContentDescription,MissingPrefix" />
+
+    <fragment
+        android:id="@+id/fragment_volume_slider"
+        class="com.paolovalerdi.abbey.ui.fragments.player.PlaybackVolumeSliderFragment"
+        android:layout_width="0dp"
+        android:layout_height="?listPreferredItemHeightSmall"
+        android:layout_marginStart="@dimen/default_item_margin"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/playerPlayPauseFab"
+        tools:layout="@layout/fragment_player_playback_volume_slider" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/default_item_margin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/default_item_margin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<about>
+    <me.jfenn.attribouter.wedges.AppWedge>
+
+        <me.jfenn.attribouter.wedges.link.LinkWedge
+            name="Telegram"
+            icon="@drawable/ic_telegram"
+            priority="7"
+            url="https://t.me/abbeymusicplayer" />
+
+    </me.jfenn.attribouter.wedges.AppWedge>
+
+    <me.jfenn.attribouter.wedges.ContributorsWedge
+        overflow="-1"
+        showDefaults="false"
+        title="Developer">
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="Paolo Valerdi"
+            avatar="https://avatars2.githubusercontent.com/u/9915479"
+            login="paolovalerdi"
+            task="Developer">
+
+            <me.jfenn.attribouter.wedges.link.LinkWedge
+                name="Twiter"
+                icon="@drawable/ic_twitter"
+                url="https://twitter.com/paolovalerdi" />
+
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+
+    </me.jfenn.attribouter.wedges.ContributorsWedge>
+
+    <me.jfenn.attribouter.wedges.ContributorsWedge
+        overflow="-1"
+        showDefaults="false"
+        title="Special Thanks">
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="Karim Abou Zeid"
+            avatar="https://avatars2.githubusercontent.com/u/7303830"
+            login="kabouzeid"
+            task="Phonograph developer" />
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="Adrien Poupa"
+            avatar="https://avatars1.githubusercontent.com/u/15086425"
+            login="AdrienPoupa"
+            task="Vinyl Music Player developer" />
+
+    </me.jfenn.attribouter.wedges.ContributorsWedge>
+
+    <me.jfenn.attribouter.wedges.LicensesWedge showDefaults="true">
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="AdrienPoupa/VinylMusicPlayer" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="kabouzeid/Phonograph" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="airbnb/epoxy" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="JetBrains/kotlin" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="square/retrofit" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="material-components/material-components-android" />
+
+        <me.jfenn.attribouter.wedges.LicenseWedge repo="afollestad/material-dialogs" />
+
+    </me.jfenn.attribouter.wedges.LicensesWedge>
+
+</about>

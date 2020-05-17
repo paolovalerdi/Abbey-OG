@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="bottom_nav_home" />
+    <item type="id" name="bottom_nav_songs" />
+    <item type="id" name="bottom_nav_albums" />
+    <item type="id" name="bottom_nav_artist" />
+    <item type="id" name="bottom_nav_genres" />
+    <item type="id" name="bottom_nav_playlist" />
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+        app:defaultValue="true"
+        app:key="audio_ducking"
+        app:summary="@string/pref_summary_audio_ducking"
+        app:title="@string/pref_title_audio_ducking" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+        app:defaultValue="false"
+        app:key="gapless_playback"
+        app:summary="@string/pref_summary_gapless_playback"
+        app:title="@string/pref_title_gapless_playback" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+        app:defaultValue="true"
+        app:key="remember_shuffle"
+        app:summary="@string/pref_summary_remember_shuffle"
+        app:title="@string/pref_title_remember_shuffle" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+        app:defaultValue="none"
+        app:entries="@array/pref_audio_replaygain_source_mode_titles"
+        app:entryValues="@array/pref_audio_replaygain_source_mode_values"
+        app:key="replaygain_srource_mode"
+        app:negativeButtonText="@null"
+        app:positiveButtonText="@null"
+        app:title="@string/pref_title_rg_source_mode"
+        app:useSimpleSummaryProvider="true" />
+
+    <com.paolovalerdi.abbey.preferences.PreAmpPreference
+        app:enabled="false"
+        app:key="replaygain_preamp"
+        app:summary="@string/pref_summary_rg_preamp"
+        app:title="@string/pref_title_rg_preamp" />
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreference
+        app:key="equalizer"
+        app:title="@string/equalizer" />
+
+</androidx.preference.PreferenceScreen>

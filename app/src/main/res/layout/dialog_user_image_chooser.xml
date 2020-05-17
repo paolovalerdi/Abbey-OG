@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/default_item_margin"
+    android:paddingBottom="@dimen/default_item_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dialogUserImage"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="@dimen/default_item_margin"
+            android:layout_weight="0"
+            tools:src="@drawable/default_avatar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/default_item_margin"
+            android:layout_marginEnd="@dimen/default_item_margin"
+            android:layout_weight="1"
+            android:hint="@string/your_name_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dialogUserTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:textAppearance="@style/TextAppearance.Abbey.Item.Title"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialogUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        android:text="@string/action_set" />
+
+
+</LinearLayout>

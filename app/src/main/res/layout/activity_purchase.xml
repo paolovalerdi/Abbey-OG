@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.paolovalerdi.abbey.views.WidthFitSquareLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_item_margin"
+            app:cardCornerRadius="@dimen/corner_radius_big"
+            app:cardElevation="@dimen/toolbar_elevation">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/purchaseFeatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.paolovalerdi.abbey.views.WidthFitSquareLayout>
+
+    <TextView
+        android:id="@+id/purchaseBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_item_margin"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        android:lineSpacingMultiplier="1.2"
+        android:text="Enjoy extra features. Including stunning now playing screen themes, black amoled theme, lyrics searching within the app and more to come.\nThank you for supporting this project :)"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_item_margin"
+        android:layout_marginEnd="@dimen/default_item_margin"
+        android:layout_marginBottom="@dimen/default_item_margin"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/restoreButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_height="wrap_content"
+            android:text="Restore" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/purchaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I'm in" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

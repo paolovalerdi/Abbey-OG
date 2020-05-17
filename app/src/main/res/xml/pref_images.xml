@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_header_images">
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="false"
+            app:key="ignore_media_store_artwork"
+            app:summary="@string/pref_summary_ignore_media_store_artwork"
+            app:title="@string/pref_title_ignore_media_store_artwork" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            app:defaultValue="only_wifi"
+            app:entries="@array/pref_auto_download_images_titles"
+            app:entryValues="@array/pref_auto_download_images_values"
+            app:key="auto_download_images_policy"
+            app:negativeButtonText="@null"
+            app:positiveButtonText="@null"
+            app:title="@string/pref_title_auto_download_metadata"
+            app:useSimpleSummaryProvider="true" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory app:title="@string/pref_header_lockscreen">
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="true"
+            app:key="album_art_on_lockscreen"
+            app:summary="@string/pref_summary_album_art_on_lockscreen"
+            app:title="@string/pref_title_album_art_on_lockscreen" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+            app:defaultValue="false"
+            app:dependency="album_art_on_lockscreen"
+            app:key="blurred_album_art"
+            app:summary="@string/pref_summary_blurred_album_art"
+            app:title="@string/pref_title_blurred_album_art" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
