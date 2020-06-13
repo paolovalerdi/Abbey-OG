@@ -5,12 +5,12 @@
 
     <!-- General -->
     <string name="home">Home</string>
-    <string name="hi_x">Hi %1$s</string>
-    <string name="good_morning_x">Good morning %1$s</string>
+    <string name="hi_x">Hi, %1$s</string>
+    <string name="good_morning_x">Good morning, %1$s</string>
     <string name="still_awake">Still awake?</string>
-    <string name="good_after_noon_x">Good afternoon %1$s</string>
-    <string name="good_evening_x">Good evening %1$s</string>
-    <string name="good_night_x">Good night %1$s</string>
+    <string name="good_after_noon_x">Good afternoon, %1$s</string>
+    <string name="good_evening_x">Good evening, %1$s</string>
+    <string name="good_night_x">Good night, %1$s</string>
 
     <string name="song">Song</string>
     <string name="songs">Songs</string>
